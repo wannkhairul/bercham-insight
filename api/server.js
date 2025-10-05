@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path'); // Tambah ini
 
 const app = express();
 const PORT = process.env.PORT || 3000; // Server akan berjalan di port 3000 (jika tiada ditetapkan)
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use(cors()); 
 
 // Menghidangkan fail statik (HTML/CSS/JS) dari folder public
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '..', 'public'))); 
 
 // ---------------------------------------------
 // SAMBUNGAN DATABASE (MongoDB)
@@ -62,6 +63,7 @@ const Booking = mongoose.model('Booking', BookingSchema);
 
 // 1. Route untuk mendapatkan semua pengumuman
 app.get('/api/info', async (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
     try {
         const announcements = await Announcement.find().sort({ date: -1 });
         res.json(announcements);
