@@ -2,11 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "api/server.js",
       "use": "@vercel/node"
     }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/server.js" }
+
+    { "source": "/", "destination": "/public/index.html" },
+    { "source": "/(.*\\.(?:css|js|html|png|jpg|gif))", "destination": "/public/$1" },
+    { "source": "/admin", "destination": "/public/admin.html" }
   ]
 }

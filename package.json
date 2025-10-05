@@ -2,9 +2,9 @@
   "name": "bercham-insight-fyp",
   "version": "1.0.0",
   "description": "Projek Akhir Tahun Bercham Insight",
-  "main": "server.js",  
-  "scripts": { 
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "api/server.js",
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"  
   },
 
   "dependencies": {
