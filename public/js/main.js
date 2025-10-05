@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fungsi untuk menarik data dari Backend
     const fetchBuildings = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/bangunan');
+            const response = await fetch('https://bercham-insight.vercel.app/api/bangunan');
             if (!response.ok) {
                 throw new Error('Gagal mengambil data bangunan.');
             }
@@ -92,7 +92,7 @@ if (bookingForm) {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/tempahan', {
+            const response = await fetch('https://bercham-insight.vercel.app/api/tempahan', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ const announcementList = document.getElementById('announcement-list');
 
 const fetchAnnouncements = async () => {
     try {
-        const response = await fetch('http://localhost:3000/api/info');
+        const response = await fetch('https://bercham-insight.vercel.app/api/info');
         if (!response.ok) {
             throw new Error('Gagal mengambil data pengumuman.');
         }
