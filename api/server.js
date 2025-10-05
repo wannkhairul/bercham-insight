@@ -1,12 +1,12 @@
 // Memuatkan pemboleh ubah persekitaran dari fail .env
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path'); // Tambah ini
 
 const app = express();
-const PORT = process.env.PORT || 3000; // Server akan berjalan di port 3000 (jika tiada ditetapkan)
+const PORT = process.env.PORT || 3000; // Tidak digunakan di serverless, tetapi disimpan untuk keserasian
 
 // ---------------------------------------------
 // MIDDLEWARE (Alat Bantu Server)
@@ -14,17 +14,24 @@ const PORT = process.env.PORT || 3000; // Server akan berjalan di port 3000 (jik
 // Membenarkan server memproses data JSON
 app.use(express.json());
 // Membenarkan frontend dan backend berinteraksi (penting untuk projek ini)
-app.use(cors()); 
+app.use(cors());
 
 // Menghidangkan fail statik (HTML/CSS/JS) dari folder public
-app.use(express.static(path.join(__dirname, '..', 'public'))); 
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // ---------------------------------------------
 // SAMBUNGAN DATABASE (MongoDB)
 // ---------------------------------------------
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ Berjaya menyambung ke MongoDB Atlas!'))
-    .catch((err) => console.error('❌ Ralat sambungan MongoDB:', err));
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('✅ Berjaya menyambung ke MongoDB Atlas!');
+    } catch (err) {
+        console.error('❌ Ralat sambungan MongoDB:', err);
+        // Jangan crash aplikasi; log sahaja dan teruskan
+    }
+};
+connectDB(); // Panggil sambungan
 
 // ---------------------------------------------
 // DEFINISI MODEL (Mongoose Schemas)
@@ -41,7 +48,7 @@ const Announcement = mongoose.model('Announcement', AnnouncementSchema);
 const BuildingSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true }, // Contoh: Blok A, Dewan Kuliah Utama
     code: { type: String, required: true, unique: true }, // Contoh: BA, DKU
-    description: { type: String }, 
+    description: { type: String },
     locationUrl: { type: String } // Pautan Google Maps atau peta interaktif
 });
 const Building = mongoose.model('Building', BuildingSchema);
@@ -61,9 +68,8 @@ const Booking = mongoose.model('Booking', BookingSchema);
 // ROUTES (API Endpoints)
 // ---------------------------------------------
 
-// 1. Route untuk mendapatkan semua pengumuman
+// 1. Route untuk mendapatkan semua pengumuman (DIBETULKAN: Hanya pulangkan JSON)
 app.get('/api/info', async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
     try {
         const announcements = await Announcement.find().sort({ date: -1 });
         res.json(announcements);
@@ -108,9 +114,13 @@ app.get('/api/tempahan/all', async (req, res) => {
         res.status(500).json({ message: "Gagal mendapatkan senarai tempahan." });
     }
 });
+
 // ---------------------------------------------
-// MULAKAN SERVER
+// EKSPORT APLIKASI (Untuk Serverless seperti Vercel)
 // ---------------------------------------------
-app.listen(PORT, () => {
-    console.log(`🚀 Server Bercham Insight berjalan di http://localhost:${PORT}`);
-});
+module.exports = app; // Eksport aplikasi untuk Vercel/Render
+
+// Alih keluar app.listen kerana tidak diperlukan di serverless
+// app.listen(PORT, () => {
+//     console.log(`🚀 Server Bercham Insight berjalan di http://localhost:${PORT}`);
+// });
