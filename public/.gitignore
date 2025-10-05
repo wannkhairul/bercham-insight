@@ -1,0 +1,4 @@
+# Fail dan folder yang akan diabaikan oleh Git
+/node_modules
+.env
+/public/admin.html.bak

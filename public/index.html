@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bercham Insight - Kampus di Hujung Jari</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    // Warna Utama anda (contoh: Navy, Hijau Pudar, Putih Gading)
+                    colors: {
+                        'primary': '#192A56',  // Navy Blue yang dalam (Gunakan untuk Navbar, Footer, Butang Utama)
+                        'secondary': '#4CAF50', // Green terang (Gunakan untuk highlight, butang kedua)
+                        'background': '#F4F4F9', // Light Grey / Off-White (Warna latar belakang)
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-background">
+    
+    <header class="sticky top-0 z-50 bg-primary shadow-lg">
+        <nav class="container mx-auto p-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-white">
+                Bercham <span class="text-secondary">Insight</span>
+            </h1>
+            
+            <button id="menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-white hover:text-secondary font-medium transition duration-300">Utama</a>
+                <a href="#bangunan" class="text-white hover:text-secondary font-medium transition duration-300">Bangunan</a>
+                <a href="#tempahan" class="text-white hover:text-secondary font-medium transition duration-300">Tempahan</a>
+                <a href="#info" class="text-white hover:text-secondary font-medium transition duration-300">Info Kampus</a>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-primary pb-4">
+            <a href="#" class="block px-4 py-2 text-white hover:bg-secondary/20 transition duration-300">Utama</a>
+            <a href="#bangunan" class="block px-4 py-2 text-white hover:bg-secondary/20 transition duration-300">Bangunan</a>
+            <a href="#tempahan" class="block px-4 py-2 text-white hover:bg-secondary/20 transition duration-300">Tempahan</a>
+            <a href="#info" class="block px-4 py-2 text-white hover:bg-secondary/20 transition duration-300">Info Kampus</a>
+        </div>
+    </header>
+    
+    <main class="container mx-auto p-4 mt-8">
+        <section class="text-center py-16 px-4 bg-white rounded-xl shadow-xl">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-primary mb-4 animate-fadeIn">
+                Kampus di Hujung Jari
+            </h2>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                Cari kelas anda, tempah fasiliti, dan dapatkan info kampus terkini dengan mudah.
+            </p>
+            <div class="space-y-4 md:space-y-0 md:space-x-4">
+                <a href="#bangunan" class="inline-block px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition duration-300 shadow-md transform hover:scale-[1.03]">
+                    Cari Bangunan
+                </a>
+                <a href="#tempahan" class="inline-block px-8 py-3 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary/90 transition duration-300 shadow-md">
+                    Tempah Fasiliti
+                </a>
+            </div>
+        </section>
+        
+        </main>
+        <section id="bangunan" class="mt-12 py-10 px-4">
+     <h2 class="text-3xl font-bold text-primary mb-6 text-center fade-item">Cari Lokasi & Kelas</h2>
+    
+    
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-xl fade-item">
+        <input type="text" id="search-input" placeholder="Cari Bangunan atau Kod (Contoh: Blok A, DKU)" 
+               class="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-secondary focus:ring focus:ring-secondary/50 transition duration-300">
+        
+        <div id="building-results" class="mt-6 space-y-4">
+            <p class="text-center text-gray-500">Memuatkan senarai bangunan...</p>
+        </div>
+    </div>
+</section>
+
+<section id="tempahan" class="mt-12 py-10 px-4 bg-white rounded-xl shadow-xl">
+    <h2 class="text-3xl font-bold text-primary mb-6 text-center fade-item">Tempah Fasiliti Kampus</h2>
+    
+    <div class="max-w-md mx-auto p-6 bg-gray-50 rounded-lg border border-gray-200 fade-item">
+        <form id="booking-form" class="space-y-4">
+            <div>
+                <label for="facility" class="block text-sm font-medium text-gray-700">Pilih Fasiliti</label>
+                <select id="facility" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:border-secondary focus:ring focus:ring-secondary/50">
+                    <option value="" disabled selected>-- Sila Pilih Fasiliti --</option>
+                    <option value="Bilik Mesyuarat C1">Bilik Mesyuarat C1</option>
+                    <option value="Makmal Komputer 3">Makmal Komputer 3</option>
+                    <option value="Gelanggang Serbaguna">Gelanggang Serbaguna</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Tarikh</label>
+                <input type="date" id="date" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:border-secondary focus:ring focus:ring-secondary/50">
+            </div>
+
+            <div>
+                <label for="time-slot" class="block text-sm font-medium text-gray-700">Slot Masa</label>
+                <select id="time-slot" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:border-secondary focus:ring focus:ring-secondary/50">
+                    <option value="" disabled selected>-- Pilih Slot --</option>
+                    <option value="09:00 - 10:00">09:00 - 10:00</option>
+                    <option value="10:00 - 11:00">10:00 - 11:00</option>
+                    <option value="14:00 - 15:00">14:00 - 15:00</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="matric" class="block text-sm font-medium text-gray-700">Nombor Matrik</label>
+                <input type="text" id="matric" placeholder="Contoh: 12345678" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:border-secondary focus:ring focus:ring-secondary/50">
+            </div>
+            <div>
+                <label for="purpose" class="block text-sm font-medium text-gray-700">Tujuan Tempahan</label>
+                <textarea id="purpose" rows="3" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:border-secondary focus:ring focus:ring-secondary/50"></textarea>
+            </div>
+
+            <div id="booking-message" class="hidden p-3 rounded-md text-sm text-center font-medium"></div>
+
+            <button type="submit" class="w-full bg-secondary text-white py-3 rounded-md font-semibold hover:bg-secondary/90 transition duration-300 transform hover:scale-[1.01] shadow-lg">
+                Hantar Tempahan
+            </button>
+        </form>
+    </div>
+</section>
+<section id="info" class="mt-12 py-10 px-4">
+    <h2 class="text-3xl font-bold text-primary mb-6 text-center fade-item">Info Kampus Terkini</h2>
+    
+    <div class="max-w-5xl mx-auto space-y-6">
+        <div id="announcement-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <p class="text-center text-gray-500 col-span-full fade-item">Memuatkan pengumuman terkini...</p>
+        </div>
+        <div class="text-center mt-8 fade-item">
+             <a href="#" class="inline-block px-8 py-3 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary/90 transition duration-300 shadow-md transform hover:scale-[1.03]">
+                 Lihat Semua Info
+             </a>
+        </div>
+    </div>
+</section>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Sedikit JavaScript untuk Menu Mobile
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <footer class="bg-primary mt-16 py-8">
+    <div class="container mx-auto px-4 text-white">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/20 pb-6 mb-6">
+            
+            <div>
+                <h3 class="text-3xl font-bold mb-2">
+                    Bercham <span class="text-secondary">Insight</span>
+                </h3>
+                <p class="text-sm text-white/80">Kampus di Hujung Jari Anda.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-3">Pautan Pantas</h4>
+                <ul class="space-y-2 text-white/80 text-sm">
+                    <li><a href="#" class="hover:text-secondary transition duration-200">Utama</a></li>
+                    <li><a href="#bangunan" class="hover:text-secondary transition duration-200">Cari Bangunan</a></li>
+                    <li><a href="#tempahan" class="hover:text-secondary transition duration-200">Tempah Fasiliti</a></li>
+                    <li><a href="#info" class="hover:text-secondary transition duration-200">Info Kampus</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-3">Hubungi</h4>
+                <p class="text-sm text-white/80 space-y-2">
+                    <span class="block">Email: support@bercham.edu.my</span>
+                    <span class="block">Tel: +60 12-345 6789</span>
+                    <span class="block">Alamat: Universiti Bercham</span>
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="text-lg font-semibold mb-3">Ikuti Kami</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-white hover:text-secondary transition duration-200 text-xl" title="Facebook">FB</a>
+                    <a href="#" class="text-white hover:text-secondary transition duration-200 text-xl" title="Instagram">IG</a>
+                    <a href="#" class="text-white hover:text-secondary transition duration-200 text-xl" title="Twitter">TW</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center text-sm text-white/60 pt-4">
+            &copy; <span id="current-year"></span> Bercham Insight. Hak Cipta Terpelihara.
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Automatik kemaskini tahun hak cipta
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
